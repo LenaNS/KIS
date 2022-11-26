@@ -16,7 +16,7 @@ if __name__ == "__main__":
         name.set('name','name')
         patronymic.set('name','patronymic')
 
-        for
+        
 
         surname.text = f_i_o[0]
         name.text = f_i_o[1]
