@@ -42,8 +42,9 @@ class Generator_name():
         for i in range(len(self.create_list_surname())):
             for j in range(len(self.create_list_names())):
                 for g in range(len(self.create_list_patronymic())):
-                    string_fio = self.create_list_surname()[i] + " " + self.create_list_names()[j] + " " + self.create_list_patronymic()[g]                 
-                    self.list_fio.append([string_fio, oms_mod.Oms_Policy().form_namber()])
+                    string_fio = self.create_list_surname()[i] + " " + self.create_list_names()[j] + " " + self.create_list_patronymic()[g]
+                    self.list_oms.append(oms_mod.Oms_Policy().form_namber())                  
+                    self.list_fio.append([])
         return self.list_fio
 
        
