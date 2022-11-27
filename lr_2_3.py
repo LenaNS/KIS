@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as et
 import json
-#hhj
+
 def form_xml(f_i_o):
     fio = et.Element('fio')
     items_fio = et.SubElement(fio, 'items_fio')

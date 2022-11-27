@@ -4,35 +4,47 @@ import json
 
 if __name__ == "__main__":   
     fio = generator_mod.Generator_name()
-    list_fio = fio.get_fio()
+    list_fio, list_oms = fio.get_fio()
 
-    def form_xml(f_i_o):
+    def form_xml(list_fio, list_oms):
         fio1 = et.Element('fio')
         items_fio = et.SubElement(fio1, 'items_fio')
-        surname = et.SubElement(items_fio,'surname')
-        name = et.SubElement(items_fio,'name')
-        patronymic = et.SubElement(items_fio,'patronymic')
-        surname.set('name','surname') 
-        name.set('name','name')
-        patronymic.set('name','patronymic')
+        for n, s in zip(list_fio, list_oms):
+            print(n)
+            surname = et.SubElement(items_fio,'surname')
+            name = et.SubElement(items_fio,'name')
+            oms = et.SubElement(items_fio, "oms")
+            patronymic = et.SubElement(items_fio,'patronymic')
+            surname.set('name','surname') 
+            name.set('name','name')
+            patronymic.set('name','patronymic')
+            oms.set('oms','oms')
 
-        
 
-        surname.text = f_i_o[0]
-        name.text = f_i_o[1]
-        patronymic.text = f_i_o[2]
+            list_name = n.split()
+            surname.text = list_name[0]
+            name.text = list_name[1]
+            patronymic.text = list_name[2]
+            oms.text = s
 
-        mydata =et.tostring(fio, encoding='unicode',)
-        myfile = open("fio_2.xml", "w",encoding="utf-8")
-        myfile.write(mydata + "\n")
+            mydata =et.tostring(fio1, encoding='unicode')
+            myfile = open("fio_2.xml", "w", encoding="utf-8")
+            myfile.write(mydata + "\n")
+    form_xml(list_fio, list_oms)
 
-def form_json(f_i_o):
-    surname = f_i_o[0]
-    print(surname)
-    name = f_i_o[1]
-    patronymic = f_i_o[2]
+def form_json(list_fio, list_oms):
+    js = []
+    for n, s in zip(list_fio, list_oms):
+        list_name = n.split()
+        surname = list_name[0]
+        name = list_name[1]
+        patronymic = list_name[2]
+        oms = s
 
-    to_json = {'surname': str(surname), 'name': name, 'patronymic': patronymic}
+        to_json = {'surname': str(surname), 'name': name, 'patronymic': patronymic, 'oms': oms}
+        js.append(to_json)
 
-    with open('fio2.json', 'w', encoding="utf-8") as f:
-        f.write(json.dumps(to_json, indent=2, ensure_ascii=False))
+        myfile = open('fio_2.json', 'w', encoding="utf-8") 
+        myfile.write(json.dumps(js, indent=2, ensure_ascii=False))
+
+form_json(list_fio, list_oms)
